@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Entity\PostLike;
 use App\Form\CommentFormType;
 use App\Form\PostFormType;
+use App\Form\TagFormType;
 use App\Repository\PostLikeRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -60,6 +61,7 @@ class PostController extends AbstractController
     public function show(Post $post, Request $request, EntityManagerInterface $entityManager, PostLikeRepository $likeRepository)
     {
         $form = $this->createForm(CommentFormType::class);
+        $tagsForm = $this->createForm(TagFormType::class);
         $form->handleRequest($request);
         if ($this->isGranted('ROLE_USER') && $form->isSubmitted() && $form->isValid()) {
             /** @var Comment $comment */
@@ -78,7 +80,8 @@ class PostController extends AbstractController
         return $this->render('post/view.html.twig', [
             'post' => $post,
             'commentForm' => $form->createView(),
-            'userLikesPost' => $userLikesPost
+            'userLikesPost' => $userLikesPost,
+                'tagForm' => $tagsForm->createView()
         ]);
     }
 
