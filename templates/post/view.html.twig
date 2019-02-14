@@ -15,6 +15,7 @@
                     </div>
                 </div>
                 <p>{{ post.content }}</p>
+                <p>Tags: {{ post.tags }}</p>
                 {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('post_like', {id: post.id}) }}"
                        class="fa{% if userLikesPost %}s{% else %}r{% endif %} fa-heart" id="post-likes">
@@ -29,8 +30,8 @@
 
     {% if is_granted('ROLE_USER') %}
         {{ form_start(commentForm) }}
-            {{ form_row(commentForm.content) }}
-            <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+        {{ form_row(commentForm.content) }}
+        <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
         {{ form_end(commentForm) }}
     {% endif %}
 

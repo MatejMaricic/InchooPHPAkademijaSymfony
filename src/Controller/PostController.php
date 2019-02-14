@@ -42,11 +42,13 @@ class PostController extends AbstractController
             return $this->redirectToRoute('post_index');
         }
 
+        $tags = array();
         $posts = $postRepository->getAllInLastWeek();
 
         return $this->render('post/index.html.twig', [
             'form' => $form->createView(),
-            'posts' => $posts
+            'posts' => $posts,
+            'tags' => $tags
         ]);
     }
 
@@ -81,7 +83,26 @@ class PostController extends AbstractController
             'post' => $post,
             'commentForm' => $form->createView(),
             'userLikesPost' => $userLikesPost,
-                'tagForm' => $tagsForm->createView()
+            'tagForm' => $tagsForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/tag/{tag}", name="tag_view")
+     * @return Response
+     */
+    public function tag( $tag )
+    {
+        /*
+        $userLikesPost = $likeRepository->findOneBy([
+            'user' => $this->getUser(),
+            'post' => $post
+        ]);*/
+        return $this->render('post/tag.html.twig', [
+            'post' => '',
+            'commentForm' => '',
+            'userLikesPost' => '',
+            'tagForm' => ''
         ]);
     }
 

@@ -62,6 +62,11 @@ class Post
     private $likes;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tags;
+
+    /**
      * @return Collection|Comment[]
      */
     public function getComments()
@@ -208,5 +213,17 @@ class Post
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    public function getTags(): ?string
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?string $tags): self
+    {
+        $this->tags = $tags;
+
+        return $this;
     }
 }

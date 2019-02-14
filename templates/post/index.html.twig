@@ -4,8 +4,9 @@
 
     {% if is_granted('ROLE_USER') %}
         {{ form_start(form) }}
-            {{ form_row(form.content) }}
-            <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+        {{ form_row(form.content) }}
+        {{ form_row(form.tags) }}
+        <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
         {{ form_end(form) }}
     {% endif %}
 
@@ -16,6 +17,14 @@
                     <div class="card-body">
                         <h6 class="card-subtitle mt-2 text-muted">{{ post.createdAt|date }}</h6>
                         <p class="card-text">{{ post.content }}</p>
+                        <p class="card-text">
+                            Tags:
+                            {% set all_tags = post.tags|split(',') %}
+                            {% for tag in all_tags %}
+                                {{ tag|e }}
+                            {% endfor %}
+
+                        </p>
                         <a href="{{ path('post_view', {'id': post.id}) }}" class="card-link">Details</a>
                     </div>
                 </div>
